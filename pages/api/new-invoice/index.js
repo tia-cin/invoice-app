@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 const handler = async (req, res) => {
   const client = await MongoClient.connect(
-    "mongodb+srv://mongoDB:<mongoDB123>@cluster0.deg35s0.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://mongoDB:<mongoDB123>@cluster0.deg35s0.mongodb.net/invoices?retryWrites=true&w=majority",
     { useNewUrlParser: true }
   );
   if (req.method === "POST") {

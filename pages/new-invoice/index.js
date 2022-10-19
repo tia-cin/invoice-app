@@ -67,6 +67,7 @@ function AddNew() {
       });
       const data = await res.json();
       router.push("/");
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -186,8 +187,12 @@ function AddNew() {
             <div>
               <button onClick={() => router.push("/")}>Discard</button>
               <div>
-                <button>Save as Draft</button>
-                <button>Send & Save</button>
+                <button onClick={() => handleSubmit("draft")}>
+                  Save as Draft
+                </button>
+                <button onClick={() => handleSubmit("pending")}>
+                  Send & Save
+                </button>
               </div>
             </div>
           </div>
