@@ -67,7 +67,25 @@ function InvoiceDetails() {
               <p>Price</p>
               <p>Total</p>
             </li>
+            <li>
+              <div>
+                <h5>Ecommerce Website</h5>
+              </div>
+              <div>
+                <p>2</p>
+              </div>
+              <div>
+                <p>$123</p>
+              </div>
+              <div>
+                <p>$246</p>
+              </div>
+            </li>
           </ul>
+        </div>
+        <div>
+          <h5>Grand Total</h5>
+          <h2>$246</h2>
         </div>
       </div>
     </div>
