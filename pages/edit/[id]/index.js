@@ -1,23 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 
-function AddNew() {
+function EditItem() {
   const router = useRouter();
   const [items, setItems] = useState([]);
-
-  const senderStreet = useRef("");
-  const senderCity = useRef("");
-  const senderPostalCode = useRef("");
-  const senderCountry = useRef("");
-  const clientName = useRef("");
-  const clientEmail = useRef("");
-  const clientStreet = useRef("");
-  const clientCity = useRef("");
-  const clientPostalCode = useRef("");
-  const clientCountry = useRef("");
-  const description = useRef("");
-  const createdAt = useRef("");
-  const paymentTerms = useRef("");
 
   const addItem = () => {
     setItems([...items, { name: "", quantity: 0, price: 0, total: 0 }]);
@@ -37,33 +23,31 @@ function AddNew() {
     setItems(newData);
   };
 
-  const totalAmount = items.reduce((a, c) => a + c.total, 0);
-
   return (
     <div>
       <div>
         <div>
-          <h3>New Invoice</h3>
+          <h3>Edit INVOICE_ID</h3>
         </div>
         <div>
           <div>
             <p>Bill from </p>
             <div>
               <p>Street Address</p>
-              <input type="text" ref={senderStreet} />
+              <input type="text" />
             </div>
             <div>
               <div>
                 <p>City</p>
-                <input type="text" ref={senderCity} />
+                <input type="text" />
               </div>
               <div>
                 <p>Postal Code</p>
-                <input type="text" ref={senderPostalCode} />
+                <input type="text" />
               </div>
               <div>
                 <p>Country</p>
-                <input type="text" ref={senderCountry} />
+                <input type="text" />
               </div>
             </div>
           </div>
@@ -71,43 +55,43 @@ function AddNew() {
             <p>Bill to </p>
             <div>
               <p>Client Name</p>
-              <input type="text" ref={clientName} />
+              <input type="text" />
             </div>
             <div>
               <p>Client Email</p>
-              <input type="email" ref={clientEmail} />
+              <input type="email" />
             </div>
             <div>
               <p>Street Address</p>
-              <input type="text" ref={clientStreet} />
+              <input type="text" />
             </div>
             <div>
               <div>
                 <p>City</p>
-                <input type="text" ref={clientCity} />
+                <input type="text" />
               </div>
               <div>
                 <p>Postal Code</p>
-                <input type="text" ref={clientPostalCode} />
+                <input type="text" />
               </div>
               <div>
                 <p>Country</p>
-                <input type="text" ref={clientCountry} />
+                <input type="text" />
               </div>
             </div>
             <div>
               <div>
                 <p>Invoice Date</p>
-                <input type="date" ref={createdAt} />
+                <input type="date" />
               </div>
               <div>
                 <p>Payment Terms</p>
-                <input type="text" ref={paymentTerms} />
+                <input type="text" />
               </div>
             </div>
             <div>
               <p>Project Description</p>
-              <input type="text" ref={description} />
+              <input type="text" />
             </div>
           </div>
           <div>
@@ -151,10 +135,9 @@ function AddNew() {
             </div>
             <button onClick={addItem}>Add New Item</button>
             <div>
-              <button onClick={() => router.push("/")}>Discard</button>
               <div>
-                <button>Save as Draft</button>
-                <button>Send & Save</button>
+                <button onClick={`/invoice/id`}>Cancel</button>
+                <button>Save Changes</button>
               </div>
             </div>
           </div>
@@ -164,4 +147,4 @@ function AddNew() {
   );
 }
 
-export default AddNew;
+export default EditItem;
