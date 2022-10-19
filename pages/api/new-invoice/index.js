@@ -37,6 +37,7 @@ const handler = async (req, res) => {
     const collection = db.collection("allInvoices");
     await collection.insertOne(invoice);
     res.status(200).send("Invoice added!");
+    client.close();
   }
 };
 

@@ -39,6 +39,39 @@ function AddNew() {
 
   const totalAmount = items.reduce((a, c) => a + c.total, 0);
 
+  const handleSubmit = async (status) => {
+    try {
+      const res = await fetch("/api/new-invoice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          senderStreet: senderStreet.current.value,
+          senderCity: senderCity.current.value,
+          senderPostalCode: senderPostalCode.current.value,
+          senderCountry: senderCountry.current.value,
+          clientName: clientName.current.value,
+          clientEmail: clientEmail.current.value,
+          clientStreet: clientStreet.current.value,
+          clientCity: clientCity.current.value,
+          clientPostalCode: clientPostalCode.current.value,
+          clientCountry: clientCountry.current.value,
+          description: description.current.value,
+          createdAt: createdAt.current.value,
+          paymentTerms: paymentTerms.current.value,
+          total: totalAmount,
+          status: status,
+          items: items,
+        }),
+      });
+      const data = await res.json();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div>
