@@ -23,13 +23,13 @@ export default function Invoices() {
           </button>
         </div>
       </div>
-      <div className="mt-2 bg-[#8e98f5] rounded h-full px-5 py-3">
-        <div className="flex justify-between ">
-          <p>INVOICE ID</p>
+      <div className="mt-2 bg-[#dfe2fe] rounded h-full px-5 py-3">
+        <div className="flex justify-between">
+          <p className="ml-2">INVOICE ID</p>
           <p>INVOICE NAME</p>
           <p>INVOICE DATE</p>
           <p>INVOICE TOTAL</p>
-          <p>STATE</p>
+          <p className="mr-5">STATE</p>
         </div>
         <Link href={`/invoice/id`} passHref>
           <div className="flex justify-between cursor-pointer hover:bg-[#7971ea] rounded px-2 pt-5 pb-3">
@@ -37,7 +37,18 @@ export default function Invoices() {
             <p>Project A</p>
             <p>8.12.2021</p>
             <p>$258</p>
-            <p className="bg-[#fce982] rounded-md py-1 px-1.5">pending</p>
+            <p className="bg-[#fce982] rounded-md w-20 h-7 text-center">
+              pending
+            </p>
+          </div>
+        </Link>
+        <Link href={`/invoice/id`} passHref>
+          <div className="flex justify-between cursor-pointer hover:bg-[#7971ea] rounded px-2 pt-5 pb-3">
+            <p>#278313</p>
+            <p>Project A</p>
+            <p>8.12.2021</p>
+            <p>$258</p>
+            <p className="bg-[#bdfc82] rounded-md w-20 h-7 text-center">done</p>
           </div>
         </Link>
       </div>
