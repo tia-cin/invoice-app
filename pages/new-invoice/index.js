@@ -78,7 +78,7 @@ function AddNew() {
   };
 
   return (
-    <div className>
+    <div className="w-full">
       <h1 className="text-center text-4xl font-semibold">New Invoice</h1>
       <div>
         <div>
@@ -191,11 +191,13 @@ function AddNew() {
                   <Inputs
                     text={"Quantity"}
                     name="quantity"
+                    type={"number"}
                     onChange={(e) => handleChange(e, i)}
                   />
                   <Inputs
                     text={"Price"}
                     name="price"
+                    type={"number"}
                     onChange={(e) => handleChange(e, i)}
                   />
                   <div>
