@@ -28,9 +28,6 @@ function AddNew() {
     paymentDue: "",
     paymentTerms: "",
     description: "",
-    status: "",
-    items: [],
-    total: 0,
   });
 
   const onChange = (e) => {
@@ -44,12 +41,13 @@ function AddNew() {
     setItems([...items, item]);
   };
 
-  const handleChange = (e, i) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    const list = [...items];
-    list[i][name] = value;
-    list[i]["total"] = list[i]["quantity"] * list[i]["price"];
-    setItems(list);
+    setItem({
+      ...item,
+      [name]: value,
+    });
+    setItems({ ...items, item });
   };
 
   const handleDeleteItem = (i) => {
@@ -58,7 +56,7 @@ function AddNew() {
     setItems(newData);
   };
 
-  const totalAmount = items.reduce((a, c) => a + c.total, 0);
+  const totalAmount = items.reduce((prev, curr) => prev.total + curr.total, 0);
 
   const handleSubmit = async (status) => {
     try {
@@ -67,7 +65,7 @@ function AddNew() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(input),
+        body: JSON.stringify({ input, status, items, total: totalAmount }),
       });
       const data = await res.json();
       router.push("/");
@@ -76,6 +74,8 @@ function AddNew() {
       console.log(error);
     }
   };
+
+  console.log(items, item);
 
   return (
     <div className="w-full">
@@ -186,19 +186,19 @@ function AddNew() {
                   <Inputs
                     text={"Item Name"}
                     name="name"
-                    onChange={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e)}
                   />
                   <Inputs
                     text={"Quantity"}
                     name="quantity"
                     type={"number"}
-                    onChange={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e)}
                   />
                   <Inputs
                     text={"Price"}
                     name="price"
                     type={"number"}
-                    onChange={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e)}
                   />
                   <div>
                     <p>Total</p>
