@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Inputs from "../../components/Inputs";
 import Buttons from "../../components/Buttons";
+import { inputsData } from "../../data";
 
 function AddNew() {
   const router = useRouter();
@@ -38,20 +39,6 @@ function AddNew() {
       [e.target.name]: e.target.value,
     });
   };
-
-  const senderStreet = useRef("");
-  const senderCity = useRef("");
-  const senderPostalCode = useRef("");
-  const senderCountry = useRef("");
-  const clientName = useRef("");
-  const clientEmail = useRef("");
-  const clientStreet = useRef("");
-  const clientCity = useRef("");
-  const clientPostalCode = useRef("");
-  const clientCountry = useRef("");
-  const description = useRef("");
-  const createdAt = useRef("");
-  const paymentTerms = useRef("");
 
   const addItem = () => {
     setItems([...items, item]);
@@ -91,131 +78,137 @@ function AddNew() {
   };
 
   return (
-    <div className="h-screen ">
+    <div className>
       <h1 className="text-center text-4xl font-semibold">New Invoice</h1>
       <div>
         <div>
           <p className="font-medium text-xl">Bill from </p>
           <Inputs
             onChange={onChange}
-            name={"Street Address"}
+            name={"senderStreet"}
+            text="Streer Address"
             width
             value={input.senderStreet}
           />
           <div className="flex justify-between">
             <Inputs
               onChange={onChange}
-              name={"City"}
+              text={"City"}
+              name="senderCity"
               value={input.senderCity}
             />
             <Inputs
               onChange={onChange}
-              name={"Postal Code"}
+              text={"Postal Code"}
+              name="senderPostalCode"
               value={input.senderPostalCode}
             />
             <Inputs
               onChange={onChange}
-              name={"Country"}
+              text={"Country"}
+              name="senderCountry"
               value={input.senderCountry}
             />
           </div>
         </div>
         <div>
           <p className="font-medium text-xl">Bill to </p>
-          <div className="flex justify-between">
-            <Inputs
-              onChange={onChange}
-              name={"Client Name"}
-              value={input.clientName}
-            />
-            <Inputs
-              onChange={onChange}
-              name={"Client Email"}
-              value={input.clientEmail}
-            />
-          </div>
           <Inputs
             onChange={onChange}
-            name={"Client Street Address"}
+            text={"Client Name"}
+            name="clientName"
+            width
+            value={input.clientName}
+          />
+          <Inputs
+            onChange={onChange}
+            text={"Client Email"}
+            name="clientEmail"
+            width
+            value={input.clientEmail}
+          />
+          <Inputs
+            onChange={onChange}
+            text={"Client Street Address"}
+            name="clientStreet"
             value={input.clientStreet}
             width
           />
           <div className="flex justify-between">
             <Inputs
               onChange={onChange}
-              name={"Client City"}
+              text={"Client City"}
+              name="clientCity"
               value={input.clientCity}
             />
             <Inputs
               onChange={onChange}
-              name={"Client Postal Code"}
+              text={"Client Postal Code"}
+              name="clientPostalCode"
               value={input.clientPostalCode}
             />
             <Inputs
               onChange={onChange}
-              name={"Client Country"}
+              text={"Client Country"}
+              name="clientCountry"
               value={input.clientCountry}
             />
           </div>
           <div className="flex justify-between">
             <Inputs
               onChange={onChange}
-              name={"Invoice Date"}
+              text={"Invoice Date"}
+              name="createAt"
               value={input.createdAt}
               type="date"
             />
             <Inputs
               onChange={onChange}
-              name={"Payment Terms"}
+              text={"Payment Terms"}
+              name="paymentTerms"
               value={input.paymentTerms}
             />
           </div>
           <Inputs
             onChange={onChange}
-            name={"Project Description"}
+            text={"Project Description"}
+            name="description"
             value={input.description}
             width
           />
         </div>
         <div>
           <div>
-            <h3>Item List</h3>
-            {items?.map((item, i) => (
-              <div key={i} className="flex justify-between">
-                <div>
-                  <p>Item Name</p>
-                  <input
-                    type="text"
+            <h3 className="mb-5">Item List</h3>
+            <div className="overflow-auto">
+              {items?.map((item, i) => (
+                <div key={i} className="flex justify-between mb-3">
+                  <Inputs
+                    text={"Item Name"}
                     name="name"
-                    onClick={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e, i)}
                   />
-                </div>
-                <div>
-                  <p>Qty</p>
-                  <input
-                    type="number"
+                  <Inputs
+                    text={"Quantity"}
                     name="quantity"
-                    onClick={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e, i)}
                   />
-                </div>
-                <div>
-                  <p>Price</p>
-                  <input
-                    type="number"
+                  <Inputs
+                    text={"Price"}
                     name="price"
-                    onClick={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e, i)}
                   />
+                  <div>
+                    <p>Total</p>
+                    <h4>${item.total}</h4>
+                  </div>
+                  <Buttons text={"Delete"} handle={() => handleDeleteItem(i)} />
                 </div>
-                <div>
-                  <p>Total</p>
-                  <h4>${item.total}</h4>
-                </div>
-                <Buttons text={"Delete"} handle={() => handleDeleteItem(i)} />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <Buttons width text={"Add New Item"} handle={addItem} />
-          <div className="flex justify-between">
+          <div className="flex justify-between my-5">
             <Buttons handle={() => router.push("/")} text="Discard" />
             <div className="flex justify-around">
               <Buttons

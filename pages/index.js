@@ -17,7 +17,7 @@ export default function Invoices() {
         <p className="font-medium text-xl">Invoices</p>
         <div className="flex justify-around">
           <p className="mt-1">There are a total of 3 invoices</p>
-          <Buttons handle={navigate} text="New Invoice" />
+          <Buttons handle={navigate} text="New Invoice" margin={"mx-2"} />
         </div>
       </div>
       <div className="mt-2 bg-liliac rounded h-full px-5 py-3">
