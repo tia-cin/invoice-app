@@ -1,11 +1,11 @@
 import logo from "../assets/logo.png";
-import { BsViewList, BsPen } from "react-icons/bs";
+import { BsViewList, BsPen, BsInbox } from "react-icons/bs";
 
 const links = [
   {
-    text: "Invoices",
-    link: "/invoice",
-    icon: <BsViewList />,
+    text: "Invoice",
+    link: "/",
+    icon: <BsInbox />,
   },
   {
     text: "Create Invoice",

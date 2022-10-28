@@ -20,7 +20,7 @@ const Sidebar = () => {
           <div
             key={i}
             onClick={() => router.push(item.link)}
-            className="flex items-center my-2"
+            className="flex items-center my-2 cursor-pointer"
           >
             <button>{item.icon}</button>
             <span className="mx-2 text-lg">{item.text}</span>

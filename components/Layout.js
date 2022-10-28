@@ -5,7 +5,7 @@ const Layout = (props) => {
   return (
     <main className="flex">
       <Sidebar />
-      <div>{props.children}</div>
+      <div className="w-full bg-[#edeef8]">{props.children}</div>
     </main>
   );
 };
