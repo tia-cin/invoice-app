@@ -3,10 +3,10 @@ import Sidebar from "./Sidebar";
 
 const Layout = (props) => {
   return (
-    <React.Fragment>
+    <main className="flex">
       <Sidebar />
       <div>{props.children}</div>
-    </React.Fragment>
+    </main>
   );
 };
 

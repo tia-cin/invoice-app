@@ -8,7 +8,7 @@ export default function Home() {
     <div className="w-full">
       <div>
         <div>
-          <h3>Invoices</h3>
+          <h3 className="">Invoices</h3>
           <p>There are a total of ... invoices</p>
         </div>
         <button onClick={navigate}>Add New Invoice</button>

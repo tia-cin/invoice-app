@@ -20,7 +20,16 @@ module.exports = {
       black: "#191919",
       white: "#f9f9f9",
     },
-    extend: {},
+    extend: {
+      width: {
+        100: "100px",
+        200: "200px",
+        300: "300px",
+        400: "400px",
+        500: "500px",
+        600: "600px",
+      },
+    },
   },
   plugins: [],
 };
