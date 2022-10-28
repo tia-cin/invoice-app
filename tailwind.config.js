@@ -13,12 +13,14 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
-      "strong-lavander": "#7971ea",
-      "medium-lavander": "#8e98f5",
-      "light-lavander": "#b1cbfa",
-      "pale.lavander": "#dfe2fe",
-      black: "#191919",
-      white: "#f9f9f9",
+      "first-dark": "#0A0E1A",
+      "second-dark": "#1D243D",
+      "third-dark": "#353D60",
+      "neutral-medium": "#515A82",
+      "third-light": "#737BA5",
+      "second-light": "#9AA0C8",
+      "first-light": "C6CAEB",
+      liliac: "#8e98f5",
     },
     extend: {
       width: {

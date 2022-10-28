@@ -6,7 +6,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <div className="h-screen w-300 bg-[#8e98f5]">
+    <div className="h-screen w-300 bg-liliac">
       <div className="flex p-5">
         <img
           src="https://cdn-icons-png.flaticon.com/512/87/87388.png?w=740&t=st=1666964877~exp=1666965477~hmac=64e6534298801bcfe121b4962db027e213d07b774241a7a57829fe2b9a21da76"

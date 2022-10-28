@@ -1,9 +1,38 @@
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
+import Inputs from "../../components/Inputs";
+import Buttons from "../../components/Buttons";
 
 function AddNew() {
   const router = useRouter();
   const [items, setItems] = useState([]);
+  const [input, setInput] = useState({
+    sender: {
+      senderAddress: {
+        street: "",
+        city: "",
+        postalCode: "",
+        country: "",
+      },
+    },
+    client: {
+      clientName: "",
+      clientEmail: "",
+      clientAddress: {
+        street: "",
+        city: "",
+        postalCode: "",
+        country: "",
+      },
+    },
+    createdAt: "",
+    paymentDue: "",
+    paymentTerms: "",
+    description: "",
+    status: "",
+    items: "",
+    total: "",
+  });
 
   const senderStreet = useRef("");
   const senderCity = useRef("");
@@ -74,126 +103,124 @@ function AddNew() {
   };
 
   return (
-    <div>
+    <div className="h-screen p-10">
+      <h1 className="text-center text-4xl font-semibold">New Invoice</h1>
       <div>
         <div>
-          <h3>New Invoice</h3>
+          <p className="font-medium text-xl">Bill from </p>
+          {/* <Inputs name={"Street Address"} width type={"text"} /> */}
+          <div>
+            <p>Street Address</p>
+            <input className="w-full" type="text" ref={senderStreet} />
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <p>City</p>
+              <input type="text" ref={senderCity} />
+            </div>
+            <div>
+              <p>Postal Code</p>
+              <input type="text" ref={senderPostalCode} />
+            </div>
+            <div>
+              <p>Country</p>
+              <input type="text" ref={senderCountry} />
+            </div>
+          </div>
+        </div>
+        <div>
+          <p className="font-medium text-xl">Bill to </p>
+          <div>
+            <p>Client Name</p>
+            <input className="w-full" type="text" ref={clientName} />
+          </div>
+          <div>
+            <p>Client Email</p>
+            <input type="email" className="w-full" ref={clientEmail} />
+          </div>
+          <div>
+            <p>Street Address</p>
+            <input type="text" className="w-full" ref={clientStreet} />
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <p>City</p>
+              <input type="text" ref={clientCity} />
+            </div>
+            <div>
+              <p>Postal Code</p>
+              <input type="text" ref={clientPostalCode} />
+            </div>
+            <div>
+              <p>Country</p>
+              <input type="text" ref={clientCountry} />
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <p>Invoice Date</p>
+              <input type="date" ref={createdAt} />
+            </div>
+            <div>
+              <p>Payment Terms</p>
+              <input type="text" ref={paymentTerms} />
+            </div>
+          </div>
+          <div>
+            <p>Project Description</p>
+            <input type="text" className="w-full" ref={description} />
+          </div>
         </div>
         <div>
           <div>
-            <p>Bill from </p>
-            <div>
-              <p>Street Address</p>
-              <input type="text" ref={senderStreet} />
-            </div>
-            <div>
-              <div>
-                <p>City</p>
-                <input type="text" ref={senderCity} />
-              </div>
-              <div>
-                <p>Postal Code</p>
-                <input type="text" ref={senderPostalCode} />
-              </div>
-              <div>
-                <p>Country</p>
-                <input type="text" ref={senderCountry} />
-              </div>
-            </div>
-          </div>
-          <div>
-            <p>Bill to </p>
-            <div>
-              <p>Client Name</p>
-              <input type="text" ref={clientName} />
-            </div>
-            <div>
-              <p>Client Email</p>
-              <input type="email" ref={clientEmail} />
-            </div>
-            <div>
-              <p>Street Address</p>
-              <input type="text" ref={clientStreet} />
-            </div>
-            <div>
-              <div>
-                <p>City</p>
-                <input type="text" ref={clientCity} />
-              </div>
-              <div>
-                <p>Postal Code</p>
-                <input type="text" ref={clientPostalCode} />
-              </div>
-              <div>
-                <p>Country</p>
-                <input type="text" ref={clientCountry} />
-              </div>
-            </div>
-            <div>
-              <div>
-                <p>Invoice Date</p>
-                <input type="date" ref={createdAt} />
-              </div>
-              <div>
-                <p>Payment Terms</p>
-                <input type="text" ref={paymentTerms} />
-              </div>
-            </div>
-            <div>
-              <p>Project Description</p>
-              <input type="text" ref={description} />
-            </div>
-          </div>
-          <div>
-            <div>
-              <h3>Item List</h3>
-              {items?.map((item, i) => (
-                <div key={i}>
-                  <div>
-                    <div>
-                      <p>Item Name</p>
-                      <input
-                        type="text"
-                        name="name"
-                        onClick={(e) => handleChange(e, i)}
-                      />
-                    </div>
-                    <div>
-                      <p>Qty</p>
-                      <input
-                        type="number"
-                        name="quantity"
-                        onClick={(e) => handleChange(e, i)}
-                      />
-                    </div>
-                    <div>
-                      <p>Price</p>
-                      <input
-                        type="number"
-                        name="price"
-                        onClick={(e) => handleChange(e, i)}
-                      />
-                    </div>
-                    <div>
-                      <p>Total</p>
-                      <h4>${item.total}</h4>
-                    </div>
-                    <button onClick={() => handleDeleteItem(i)}>Delete</button>
-                  </div>
+            <h3>Item List</h3>
+            {items?.map((item, i) => (
+              <div key={i} className="flex justify-between">
+                <div>
+                  <p>Item Name</p>
+                  <input
+                    type="text"
+                    name="name"
+                    onClick={(e) => handleChange(e, i)}
+                  />
                 </div>
-              ))}
-            </div>
-            <button onClick={addItem}>Add New Item</button>
-            <div>
-              <button onClick={() => router.push("/")}>Discard</button>
-              <div>
-                <button onClick={() => handleSubmit("draft")}>
-                  Save as Draft
-                </button>
-                <button onClick={() => handleSubmit("pending")}>
-                  Send & Save
-                </button>
+                <div>
+                  <p>Qty</p>
+                  <input
+                    type="number"
+                    name="quantity"
+                    onClick={(e) => handleChange(e, i)}
+                  />
+                </div>
+                <div>
+                  <p>Price</p>
+                  <input
+                    type="number"
+                    name="price"
+                    onClick={(e) => handleChange(e, i)}
+                  />
+                </div>
+                <div>
+                  <p>Total</p>
+                  <h4>${item.total}</h4>
+                </div>
+                <Buttons text={"Delete"} handle={() => handleDeleteItem(i)} />
               </div>
+            ))}
+          </div>
+          <Buttons width text={"Add New Item"} handle={addItem} />
+          <div className="flex justify-between">
+            <Buttons handle={() => router.push("/")} text="Discard" />
+            <div className="flex justify-around">
+              <Buttons
+                text={"Save as Draft"}
+                handle={() => handleSubmit("draft")}
+                color="transparent"
+              />
+              <Buttons
+                text={"Send & Save"}
+                handle={() => handleSubmit("pending")}
+              />
             </div>
           </div>
         </div>

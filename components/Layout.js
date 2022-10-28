@@ -5,7 +5,9 @@ const Layout = (props) => {
   return (
     <main className="flex">
       <Sidebar />
-      <div className="w-full bg-[#edeef8]">{props.children}</div>
+      <div className="w-full bg-[#0A0E1A] text-[#f9f9f9]  cursor-default p-10 ">
+        {props.children}
+      </div>
     </main>
   );
 };
