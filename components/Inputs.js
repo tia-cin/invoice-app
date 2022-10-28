@@ -1,16 +1,14 @@
 import React from "react";
 
 const Inputs = ({ name, width, ref, value, type, onChange }) => (
-  <div>
-    <p>{name}</p>
-    <input
-      type={type}
-      ref={ref}
-      value={value}
-      onChange={onChange}
-      className={`${width && "w-full"} rounded-lg`}
-    />
-  </div>
+  <input
+    type={type ? type : "text"}
+    name={name}
+    value={value}
+    onChange={onChange}
+    className={`${width && "w-full"} rounded-lg px-1.5 py-1.5 my-3`}
+    placeholder={name}
+  />
 );
 
 export default Inputs;

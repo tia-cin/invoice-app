@@ -6,33 +6,38 @@ import Buttons from "../../components/Buttons";
 function AddNew() {
   const router = useRouter();
   const [items, setItems] = useState([]);
+  const [item, setItem] = useState({
+    name: "",
+    quantity: 0,
+    price: 0,
+    total: 0,
+  });
   const [input, setInput] = useState({
-    sender: {
-      senderAddress: {
-        street: "",
-        city: "",
-        postalCode: "",
-        country: "",
-      },
-    },
-    client: {
-      clientName: "",
-      clientEmail: "",
-      clientAddress: {
-        street: "",
-        city: "",
-        postalCode: "",
-        country: "",
-      },
-    },
+    senderStreet: "",
+    senderCity: "",
+    senderPostalCode: "",
+    senderCountry: "",
+    clientName: "",
+    clientEmail: "",
+    clientStreet: "",
+    clientCity: "",
+    clientPostalCode: "",
+    clientCountry: "",
     createdAt: "",
     paymentDue: "",
     paymentTerms: "",
     description: "",
     status: "",
-    items: "",
-    total: "",
+    items: [],
+    total: 0,
   });
+
+  const onChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const senderStreet = useRef("");
   const senderCity = useRef("");
@@ -49,7 +54,7 @@ function AddNew() {
   const paymentTerms = useRef("");
 
   const addItem = () => {
-    setItems([...items, { name: "", quantity: 0, price: 0, total: 0 }]);
+    setItems([...items, item]);
   };
 
   const handleChange = (e, i) => {
@@ -75,24 +80,7 @@ function AddNew() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          senderStreet: senderStreet.current.value,
-          senderCity: senderCity.current.value,
-          senderPostalCode: senderPostalCode.current.value,
-          senderCountry: senderCountry.current.value,
-          clientName: clientName.current.value,
-          clientEmail: clientEmail.current.value,
-          clientStreet: clientStreet.current.value,
-          clientCity: clientCity.current.value,
-          clientPostalCode: clientPostalCode.current.value,
-          clientCountry: clientCountry.current.value,
-          description: description.current.value,
-          createdAt: createdAt.current.value,
-          paymentTerms: paymentTerms.current.value,
-          total: totalAmount,
-          status: status,
-          items: items,
-        }),
+        body: JSON.stringify(input),
       });
       const data = await res.json();
       router.push("/");
@@ -103,73 +91,91 @@ function AddNew() {
   };
 
   return (
-    <div className="h-screen p-10">
+    <div className="h-screen ">
       <h1 className="text-center text-4xl font-semibold">New Invoice</h1>
       <div>
         <div>
           <p className="font-medium text-xl">Bill from </p>
-          {/* <Inputs name={"Street Address"} width type={"text"} /> */}
-          <div>
-            <p>Street Address</p>
-            <input className="w-full" type="text" ref={senderStreet} />
-          </div>
+          <Inputs
+            onChange={onChange}
+            name={"Street Address"}
+            width
+            value={input.senderStreet}
+          />
           <div className="flex justify-between">
-            <div>
-              <p>City</p>
-              <input type="text" ref={senderCity} />
-            </div>
-            <div>
-              <p>Postal Code</p>
-              <input type="text" ref={senderPostalCode} />
-            </div>
-            <div>
-              <p>Country</p>
-              <input type="text" ref={senderCountry} />
-            </div>
+            <Inputs
+              onChange={onChange}
+              name={"City"}
+              value={input.senderCity}
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Postal Code"}
+              value={input.senderPostalCode}
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Country"}
+              value={input.senderCountry}
+            />
           </div>
         </div>
         <div>
           <p className="font-medium text-xl">Bill to </p>
-          <div>
-            <p>Client Name</p>
-            <input className="w-full" type="text" ref={clientName} />
+          <div className="flex justify-between">
+            <Inputs
+              onChange={onChange}
+              name={"Client Name"}
+              value={input.clientName}
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Client Email"}
+              value={input.clientEmail}
+            />
           </div>
-          <div>
-            <p>Client Email</p>
-            <input type="email" className="w-full" ref={clientEmail} />
-          </div>
-          <div>
-            <p>Street Address</p>
-            <input type="text" className="w-full" ref={clientStreet} />
+          <Inputs
+            onChange={onChange}
+            name={"Client Street Address"}
+            value={input.clientStreet}
+            width
+          />
+          <div className="flex justify-between">
+            <Inputs
+              onChange={onChange}
+              name={"Client City"}
+              value={input.clientCity}
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Client Postal Code"}
+              value={input.clientPostalCode}
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Client Country"}
+              value={input.clientCountry}
+            />
           </div>
           <div className="flex justify-between">
-            <div>
-              <p>City</p>
-              <input type="text" ref={clientCity} />
-            </div>
-            <div>
-              <p>Postal Code</p>
-              <input type="text" ref={clientPostalCode} />
-            </div>
-            <div>
-              <p>Country</p>
-              <input type="text" ref={clientCountry} />
-            </div>
+            <Inputs
+              onChange={onChange}
+              name={"Invoice Date"}
+              value={input.createdAt}
+              type="date"
+            />
+            <Inputs
+              onChange={onChange}
+              name={"Payment Terms"}
+              value={input.paymentTerms}
+            />
           </div>
-          <div className="flex justify-between">
-            <div>
-              <p>Invoice Date</p>
-              <input type="date" ref={createdAt} />
-            </div>
-            <div>
-              <p>Payment Terms</p>
-              <input type="text" ref={paymentTerms} />
-            </div>
-          </div>
-          <div>
-            <p>Project Description</p>
-            <input type="text" className="w-full" ref={description} />
-          </div>
+          <Inputs
+            onChange={onChange}
+            name={"Project Description"}
+            value={input.description}
+            width
+          />
         </div>
         <div>
           <div>
