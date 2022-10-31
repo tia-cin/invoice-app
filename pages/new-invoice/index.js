@@ -156,7 +156,7 @@ function AddNew() {
             <Inputs
               onChange={onChange}
               text={"Invoice Date"}
-              name="createAt"
+              name="createdAt"
               value={input.createdAt}
               type="date"
             />
