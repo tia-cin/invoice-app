@@ -10,6 +10,7 @@ function EditItem(props) {
   const router = useRouter();
 
   const [invoice, setInvoice] = useState();
+  const [items, setItes] = useState([]);
 
   return (
     <div className="w-full">
@@ -53,33 +54,20 @@ function EditItem(props) {
                     <p>Total</p>
                     <h4>${item.total}</h4>
                   </div>
-                  <Buttons text={"Delete"} handle={() => handleDeleteItem(i)} />
+                  <Buttons text={"Delete"} />
                 </div>
               ))}
             </div>
           </div>
-          <Buttons
-            styles={"w-full h-10"}
-            text={"Add New Item"}
-            handle={addItem}
-          />
+          <Buttons styles={"w-full h-10"} text={"Add New Item"} />
           <div className="flex justify-between my-5">
-            <Buttons
-              handle={() => router.push("/")}
-              text="Discard"
-              styles=" w-100 h-10"
-            />
+            <Buttons text="Discard" styles=" w-100 h-10" />
             <div className="flex justify-around">
               <Buttons
                 text={"Save as Draft"}
-                handle={() => handleSubmit("draft")}
                 color="transparent w-100 h-10 mx-2"
               />
-              <Buttons
-                text={"Send & Save"}
-                handle={() => handleSubmit("pending")}
-                styles=" w-100 h-10"
-              />
+              <Buttons text={"Send & Save"} styles=" w-100 h-10" />
             </div>
           </div>
         </div>
