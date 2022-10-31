@@ -8,26 +8,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     const { input } = req.body;
     const invoice = {
-      sender: {
-        street: input.senderStreet,
-        city: input.senderCity,
-        postalCode: input.senderPostalCode,
-        country: input.senderCountry,
-      },
-      client: {
-        clientName: input.clientName,
-        clientEmail: input.clientEmail,
-        clientAddress: {
-          street: input.clientStreet,
-          city: input.clientCity,
-          postalCode: input.clientPostalCode,
-          country: input.clientCountry,
-        },
-      },
-      createdAt: input.createdAt,
-      paymentDue: input.createdAt,
-      paymentTerms: input.paymentTerms,
-      description: input.description,
+      ...input,
       status: req.body.status,
       items: req.body.items,
       total: req.body.total,

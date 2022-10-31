@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Inputs from "../../../components/Inputs";
 import Buttons from "../../../components/Buttons";
@@ -8,6 +8,8 @@ function EditItem(props) {
   const { data } = props;
   console.log(data);
   const router = useRouter();
+
+  const [invoice, setInvoice] = useState();
 
   return (
     <div className="w-full">
