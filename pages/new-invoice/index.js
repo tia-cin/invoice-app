@@ -2,17 +2,10 @@ import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Inputs from "../../components/Inputs";
 import Buttons from "../../components/Buttons";
-import { inputsData } from "../../data";
 
 function AddNew() {
   const router = useRouter();
   const [items, setItems] = useState([]);
-  const [item, setItem] = useState({
-    name: "",
-    quantity: 0,
-    price: 0,
-    total: 0,
-  });
   const [input, setInput] = useState({
     senderStreet: "",
     senderCity: "",
@@ -38,16 +31,23 @@ function AddNew() {
   };
 
   const addItem = () => {
-    setItems([...items, item]);
+    setItems([
+      ...items,
+      {
+        name: "",
+        quantity: 0,
+        price: 0,
+        total: 0,
+      },
+    ]);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, i) => {
     const { name, value } = e.target;
-    setItem({
-      ...item,
-      [name]: value,
-    });
-    setItems({ ...items, item });
+    const list = [...items];
+    list[i][name] = value;
+    list[i]["total"] = list[i]["quantity"] * list[i]["price"];
+    setItems(list);
   };
 
   const handleDeleteItem = (i) => {
@@ -74,8 +74,6 @@ function AddNew() {
       console.log(error);
     }
   };
-
-  console.log(items, item);
 
   return (
     <div className="w-full">
@@ -186,19 +184,19 @@ function AddNew() {
                   <Inputs
                     text={"Item Name"}
                     name="name"
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e, i)}
                   />
                   <Inputs
                     text={"Quantity"}
                     name="quantity"
                     type={"number"}
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e, i)}
                   />
                   <Inputs
                     text={"Price"}
                     name="price"
                     type={"number"}
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e, i)}
                   />
                   <div>
                     <p>Total</p>

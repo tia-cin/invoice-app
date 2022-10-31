@@ -3,7 +3,7 @@ import { BsViewList, BsPen, BsInbox } from "react-icons/bs";
 
 const links = [
   {
-    text: "Invoice",
+    text: "Home",
     link: "/",
     icon: <BsInbox />,
   },
