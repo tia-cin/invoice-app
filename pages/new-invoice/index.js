@@ -56,7 +56,7 @@ function AddNew() {
     setItems(newData);
   };
 
-  const totalAmount = items.reduce((prev, curr) => prev.total + curr.total, 0);
+  const totalAmount = items.reduce((prev, curr) => prev + curr.total, 0);
 
   const handleSubmit = async (status) => {
     try {
