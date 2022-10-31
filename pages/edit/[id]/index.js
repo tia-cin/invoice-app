@@ -8,25 +8,6 @@ function EditItem(props) {
   const { data } = props;
   console.log(data);
   const router = useRouter();
-  const [items, setItems] = useState([]);
-
-  const addItem = () => {
-    setItems([...items, { name: "", quantity: 0, price: 0, total: 0 }]);
-  };
-
-  const handleChange = (e, i) => {
-    const { name, value } = e.target;
-    const list = [...items];
-    list[i][name] = value;
-    list[i]["total"] = list[i]["quantity"] * list[i]["price"];
-    setItems(list);
-  };
-
-  const handleDeleteItem = (i) => {
-    const newData = [...items];
-    newData.splice(i, 1);
-    setItems(newData);
-  };
 
   return (
     <div className="w-full">
