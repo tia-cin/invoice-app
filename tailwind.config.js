@@ -21,6 +21,7 @@ module.exports = {
       "second-light": "#9AA0C8",
       "first-light": "C6CAEB",
       liliac: "#8e98f5",
+      red: "#E63946",
     },
     extend: {
       width: {
