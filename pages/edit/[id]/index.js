@@ -2,8 +2,11 @@ import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Inputs from "../../../components/Inputs";
 import Buttons from "../../../components/Buttons";
+import { MongoClient, ObjectId } from "mongodb";
 
-function EditItem() {
+function EditItem(props) {
+  const { data } = props;
+  console.log(data);
   const router = useRouter();
   const [items, setItems] = useState([]);
 
@@ -116,21 +119,21 @@ export async function getStaticPaths() {
     fallback: "blocking",
     paths: invoices.map((i) => ({
       params: {
-        invoiceId: (i._id = String(i._id)),
+        id: (i._id = String(i._id)),
       },
     })),
   };
 }
 
 export async function getStaticProps(context) {
-  const { invoiceId } = context.params;
+  const { id } = context.params;
 
   const client = await MongoClient.connect(
     "mongodb+srv://mongoDB:mongoDB123@cluster0.deg35s0.mongodb.net/invoices?retryWrites=true&w=majority",
     { useNewUrlParser: true }
   );
   const db = client.db().collection("allInvoices");
-  const invoice = await db.findOne({ _id: ObjectId(invoiceId) });
+  const invoice = await db.findOne({ _id: ObjectId(id) });
 
   return {
     props: {
