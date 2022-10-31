@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Buttons from "../components/Buttons";
-import { BsClock, BsCheck } from "react-icons/bs";
+import { BsClock, BsCheck, BsDash } from "react-icons/bs";
+import { MongoClient } from "mongodb";
 
-export default function Invoices() {
+export default function Invoices(props) {
+  const { data } = props;
   const router = useRouter();
   const navigate = () => router.push("/new-invoice");
   return (
@@ -16,41 +18,56 @@ export default function Invoices() {
       <div className="flex justify-between items-center my-3">
         <p className="font-medium text-xl">Invoices</p>
         <div className="flex justify-around">
-          <p className="mt-1">There are a total of 3 invoices</p>
+          <p className="mt-1">There are a total of {data.length} invoices</p>
           <Buttons handle={navigate} text="New Invoice" margin={"mx-2"} />
         </div>
       </div>
       <div className="mt-2 bg-liliac rounded h-full px-5 py-3">
-        <div className="flex justify-between">
+        <div className="grid grid-cols-5">
           <p className="ml-2">INVOICE ID</p>
           <p>INVOICE NAME</p>
           <p>INVOICE DATE</p>
           <p>INVOICE TOTAL</p>
           <p className="mr-5">STATE</p>
         </div>
-        <Link href={`/invoice/id`} passHref>
-          <div className="flex justify-between cursor-pointer hover:bg-third-dark rounded px-2 pt-5 pb-3">
-            <p>#278313</p>
-            <p>Project A</p>
-            <p>8.12.2021</p>
-            <p>$258</p>
-            <p className="bg-third-light rounded-md text-xl p-2 mr-4 text-center">
-              <BsCheck />
-            </p>
-          </div>
-        </Link>
-        <Link href={`/invoice/id`} passHref>
-          <div className="flex justify-between cursor-pointer hover:bg-third-dark rounded px-2 pt-5 pb-3">
-            <p>#278313</p>
-            <p>Project A</p>
-            <p>8.12.2021</p>
-            <p>$258</p>
-            <p className="bg-third-light rounded-md text-xl p-2 mr-4 text-center">
-              <BsClock />
-            </p>
-          </div>
-        </Link>
+        {data?.map((item, i) => (
+          <Link href={`/invoice/${item.id}`} passHref key={i}>
+            <div className="grid grid-cols-5 cursor-pointer hover:bg-third-dark rounded px-2 pt-5 pb-3">
+              <p>#{item.id}</p>
+              <p>{item.client.clientName}</p>
+              <p>{item.createdAt}</p>
+              <p>{item.total}</p>
+              <p className="bg-third-light rounded-md text-xl p-2 mr-4 text-center">
+                {item.status === "pending" ? (
+                  <BsClock />
+                ) : item.status === "paid" ? (
+                  <BsCheck />
+                ) : (
+                  <BsDash />
+                )}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const client = await MongoClient.connect(
+    "mongodb+srv://mongoDB:mongoDB123@cluster0.deg35s0.mongodb.net/invoices?retryWrites=true&w=majority",
+    { useNewUrlParser: true }
+  );
+  const db = client.db().collection("allInvoices");
+  const invoices = await db.find({}).toArray();
+
+  return {
+    props: {
+      data: invoices.map((i) => ({
+        id: (i._id = String(i._id)),
+        ...i,
+      })),
+    },
+  };
 }

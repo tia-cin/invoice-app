@@ -7,7 +7,6 @@ const handler = async (req, res) => {
   );
   if (req.method === "POST") {
     const { input } = req.body;
-    console.log(input);
     const invoice = {
       sender: {
         street: input.senderStreet,
@@ -33,7 +32,6 @@ const handler = async (req, res) => {
       items: req.body.items,
       total: req.body.total,
     };
-    console.log(invoice);
     const db = client.db();
     const collection = db.collection("allInvoices");
     await collection.insertOne(invoice);

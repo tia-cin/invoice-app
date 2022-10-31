@@ -69,7 +69,7 @@ function AddNew() {
       });
       const data = await res.json();
       router.push("/");
-      console.log(data);
+      alert(data.message);
     } catch (error) {
       console.log(error);
     }
