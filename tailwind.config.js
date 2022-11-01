@@ -42,6 +42,10 @@ module.exports = {
         500: "500px",
         600: "600px",
       },
+      backgroundImage: {
+        "user-picture":
+          "url('https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png')",
+      },
     },
   },
   plugins: [],

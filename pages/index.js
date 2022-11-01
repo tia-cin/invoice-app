@@ -12,7 +12,7 @@ export default function Invoices(props) {
     <div>
       <div className="my-5 pb-5">
         <h1 className="text-center text-4xl font-semibold">
-          Hello User, Welcome to Finances Invoice
+          Hello, Welcome to Finances Invoice
         </h1>
       </div>
       <div className="flex justify-between items-center my-3">
