@@ -180,7 +180,7 @@ function AddNew() {
             <h3 className="mb-5">Item List</h3>
             <div className="overflow-auto">
               {items?.map((item, i) => (
-                <div key={i} className="flex justify-between mb-3">
+                <div key={i} className="flex justify-between mb-3 items-center">
                   <Inputs
                     text={"Item Name"}
                     name="name"
@@ -198,11 +198,12 @@ function AddNew() {
                     type={"number"}
                     onChange={(e) => handleChange(e, i)}
                   />
-                  <div>
-                    <p>Total</p>
-                    <h4>${item.total}</h4>
-                  </div>
-                  <Buttons text={"Delete"} handle={() => handleDeleteItem(i)} />
+                  <p>${item.total}</p>
+                  <Buttons
+                    text={"Delete"}
+                    styles="w-20 h-10"
+                    handle={() => handleDeleteItem(i)}
+                  />
                 </div>
               ))}
             </div>
