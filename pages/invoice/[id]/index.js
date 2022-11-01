@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 import Buttons from "../../../components/Buttons";
@@ -7,25 +7,15 @@ import { BsClock, BsCheck, BsDash } from "react-icons/bs";
 function InvoiceDetails(props) {
   const { data } = props;
   const router = useRouter();
-  const modalRef = useRef(null);
+  const [show, setShow] = useState(false);
 
   console.log(data);
 
-  const goBack = () => router.push("/");
-
   const updateStatus = async (invoiceId) => {
-    const res = await fetch(`/api/invoice/${invoiceId}`, {
-      method: "PUT",
-    });
-    const data = await res.json();
-  };
-
-  const deleteInvoice = async (invoiceId) => {
     try {
-      const res = await fetch(`/api/invoices/${invoiceId}`, {
-        method: "DELETE",
+      const res = await fetch(`/api/invoice/${invoiceId}`, {
+        method: "PUT",
       });
-
       const data = await res.json();
       alert(data.message);
       router.push("/");
@@ -34,7 +24,19 @@ function InvoiceDetails(props) {
     }
   };
 
-  const modalToggle = () => modalRef.current.classList.toggle("showModal");
+  const deleteInvoice = async (invoiceId) => {
+    try {
+      const res = await fetch(`/api/invoice/${invoiceId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      alert(data.message);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1 className="font-semibold text-3xl">
@@ -61,7 +63,7 @@ function InvoiceDetails(props) {
           />
           <Buttons
             text={"Delete"}
-            handle={modalToggle}
+            handle={() => setShow(true)}
             styles={"mx-2 w-100 h-10 "}
             color="bg-red"
           />
@@ -72,6 +74,29 @@ function InvoiceDetails(props) {
           />
         </div>
       </div>
+      {show && (
+        <div className="bg-third-dark rounded-lg p-5">
+          <p className="text-lg font-medium">Confirm Deletion</p>
+          <p>
+            Are you sure you want to delete invoice{" "}
+            <span className="uppercase font-medium">#{data.id.slice(15)}</span>?
+            This action cannon be undone.
+          </p>
+          <div className="flex justify-between mt-3">
+            <Buttons
+              text={"Cancel"}
+              handle={() => setShow(false)}
+              styles="w-100 h-10"
+              color="bg-red"
+            />
+            <Buttons
+              text={"Confirm"}
+              handle={() => deleteInvoice(data.id)}
+              styles="w-100 h-10"
+            />
+          </div>
+        </div>
+      )}
       <div className="bg-second-dark mt-5 rounded-md p-5">
         <div className="flex justify-between mb-5">
           <div>

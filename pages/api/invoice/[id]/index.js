@@ -8,7 +8,7 @@ const handle = async (req, res) => {
   );
   const db = client.db().collection("allInvoices");
 
-  if (req.method === "POST") {
+  if (req.method === "PUT") {
     await db.updateOne({ _id: ObjectId(id) }, { $set: { status: "paid" } });
     res.status(200).send({ message: "Invoice Paid!" });
     client.close();
