@@ -228,7 +228,7 @@ function AddNew() {
               <Buttons
                 text={"Send & Save"}
                 handle={() => handleSubmit("pending")}
-                styles=" w-100 h-10"
+                styles="w-100 h-10"
               />
             </div>
           </div>

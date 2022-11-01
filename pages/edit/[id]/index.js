@@ -23,7 +23,7 @@ function EditItem(props) {
     paymentTerms: data.paymentTerms,
     description: data.description,
   });
-  const [items, setItes] = useState(data.items);
+  const [items, setItems] = useState(data.items);
 
   const onChange = (e) => {
     setInvoice({
@@ -179,28 +179,36 @@ function EditItem(props) {
         </div>
         <div>
           <div>
-            <h3 className="mb-5">Item List</h3>
+            <p className="mb-5 font-medium text-xl">Item List</p>
             <div className="overflow-auto">
               {items?.map((item, i) => (
                 <div key={i} className="flex justify-between mb-3 items-center">
-                  <Inputs text="Item Name" name="name" value={item.name} />
+                  <Inputs
+                    text="Item Name"
+                    name="name"
+                    value={item.name}
+                    onChange={(e) => handleChange(e, i)}
+                  />
                   <Inputs
                     text="Quantity"
                     name="quantity"
                     type="number"
                     value={item.quantity}
+                    onChange={(e) => handleChange(e, i)}
                   />
                   <Inputs
                     text="Price"
                     name="price"
                     type="number"
                     value={item.price}
+                    onChange={(e) => handleChange(e, i)}
                   />
                   <p>${item.total}</p>
                   <Buttons
                     text="Delete"
                     styles={"w-20 h-10"}
                     handle={() => handleDeleteItem(i)}
+                    onChange={(e) => handleChange(e, i)}
                   />
                 </div>
               ))}
