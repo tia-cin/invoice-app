@@ -38,9 +38,9 @@ export default function Invoices(props) {
           <Link href={`/invoice/${item.id}`} passHref key={i}>
             <div className="flex justify-between cursor-pointer hover:bg-third-dark rounded px-2 pt-5 pb-3">
               <p className="uppercase">#{item.id.slice(15)}</p>
-              <p>{item.client.clientName}</p>
-              <p>{item.createdAt}</p>
-              <p>{item.total}</p>
+              <p>{item.clientName ? item.clientName : "Client"}</p>
+              <p>{item.createdAt ? item.createdAt : "yyyy-mm-dd"}</p>
+              <p>${item.total ? item.total : " -"}</p>
               <p className="bg-third-light rounded-md text-xl p-2 mr-4 text-center">
                 {item.status === "pending" ? (
                   <BsClock />

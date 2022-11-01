@@ -8,14 +8,11 @@ const handle = async (req, res) => {
   );
   const db = client.db().collection("allInvoices");
 
-  console.log(req.body);
-
   if (req.method === "PUT") {
-    const { invoice } = req.body;
     await db.updateOne(
       { _id: ObjectId(id) },
       {
-        $set: { ...invoice },
+        $set: { ...req.body },
       }
     );
     res.status(200).send({ message: "Invoice Updated!" });

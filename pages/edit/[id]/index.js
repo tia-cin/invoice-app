@@ -8,6 +8,7 @@ function EditItem(props) {
   const { data } = props;
   const router = useRouter();
   const [invoice, setInvoice] = useState({
+    id: data.id,
     senderStreet: data.sender.street,
     senderCity: data.sender.city,
     senderPostalCode: data.sender.postalCode,
@@ -23,7 +24,7 @@ function EditItem(props) {
     paymentTerms: data.paymentTerms,
     description: data.description,
   });
-  const [items, setItems] = useState(data.items);
+  const [items, setItems] = useState(data.items ? data.items : []);
 
   const onChange = (e) => {
     setInvoice({

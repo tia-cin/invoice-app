@@ -6,16 +6,10 @@ const handler = async (req, res) => {
     { useNewUrlParser: true }
   );
   if (req.method === "POST") {
-    const { input } = req.body;
-    const invoice = {
-      ...input,
-      status: req.body.status,
-      items: req.body.items,
-      total: req.body.total,
-    };
+    console.log(req.body);
     const db = client.db();
     const collection = db.collection("allInvoices");
-    await collection.insertOne(invoice);
+    await collection.insertOne(req.body);
     res.status(200).send({ message: "Invoice added!" });
     client.close();
   }
